@@ -19,6 +19,7 @@ TEMP_KEYWORDS = [
     "Trolley",
     "Airport",
     "Entry level",
+    "Picking Packing",
 ]
 
 # Words that mark a listing as remote-friendly, checked against title/body
