@@ -81,13 +81,15 @@ def main():
 
     if new_it:
         print(f"{len(new_it)} new IT job(s)")
-        send_telegram(format_message("💼 IT jobs", new_it))
+        for chunk in format_message("💼 IT jobs", new_it):
+            send_telegram(chunk)
     else:
         print("No new IT jobs.")
 
     if new_temp:
         print(f"{len(new_temp)} new temp/casual job(s)")
-        send_telegram(format_message("🧰 Temp/casual jobs", new_temp))
+        for chunk in format_message("🧰 Temp/casual jobs", new_temp):
+            send_telegram(chunk)
     else:
         print("No new temp/casual jobs.")
 

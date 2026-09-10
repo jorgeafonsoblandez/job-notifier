@@ -17,14 +17,19 @@ def send_telegram(message: str):
     resp.raise_for_status()
 
 
-def format_message(title: str, jobs: list[dict]) -> str:
-    """jobs: list of {"title", "company", "location", "url"}"""
-    lines = [f"{title} ({len(jobs)} new)", ""]
-    for job in jobs:
-        lines.append(f"🔹 {job['title']}")
-        bits = [b for b in [job.get("company"), job.get("location")] if b]
-        if bits:
-            lines.append(" · ".join(bits))
-        lines.append(job["url"])
-        lines.append("")
-    return "\n".join(lines).strip()
+def format_message(title: str, jobs: list[dict]) -> list[str]:
+    """Splits jobs into batches of 5 to avoid Telegram character limits."""
+    chunks = []
+    batch_size = 5
+    for i in range(0, len(jobs), batch_size):
+        batch = jobs[i:i + batch_size]
+        lines = [f"{title} ({i+1}-{i+len(batch)} of {len(jobs)})", ""]
+        for job in batch:
+            lines.append(f"🔹 {job['title']}")
+            bits = [b for b in [job.get("company"), job.get("location")] if b]
+            if bits:
+                lines.append(" · ".join(bits))
+            lines.append(job["url"])
+            lines.append("")
+        chunks.append("\n".join(lines).strip())
+    return chunks

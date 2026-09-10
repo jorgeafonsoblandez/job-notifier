@@ -16,8 +16,7 @@ TEMP_KEYWORDS = [
     "Warehousing",
     "Events",
     "No experience required",
-    "Airport jobs",
-    "Trolley boy",
+    "Trolley",
     "Entry level",
 ]
 
