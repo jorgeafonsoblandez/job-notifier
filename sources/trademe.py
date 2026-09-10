@@ -16,7 +16,7 @@ OAUTH_TOKEN = os.environ.get("TRADEME_OAUTH_TOKEN")
 OAUTH_TOKEN_SECRET = os.environ.get("TRADEME_OAUTH_TOKEN_SECRET")
 
 # Swap "trademe.co.nz" for "tmsandbox.co.nz" to test against the sandbox.
-BASE_URL = os.environ.get("TRADEME_API_BASE", "https://api.trademe.co.nz/v1")
+BASE_URL = os.environ.get("TRADEME_API_BASE", "https://api.tmsandbox.co.nz/v1")
 
 AUCKLAND_REGION_ID = 1  # covers Auckland City, North Shore City, etc.
 

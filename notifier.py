@@ -11,25 +11,34 @@ def send_telegram(message: str):
         return
     resp = requests.post(
         f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
-        data={"chat_id": TELEGRAM_CHAT_ID, "text": message, "disable_web_page_preview": True},
+        data={
+            "chat_id": TELEGRAM_CHAT_ID, 
+            "text": message, 
+            "parse_mode": "Markdown",
+            "disable_web_page_preview": True
+        },
         timeout=10,
     )
     resp.raise_for_status()
 
 
 def format_message(title: str, jobs: list[dict]) -> list[str]:
-    """Splits jobs into batches of 5 to avoid Telegram character limits."""
+    """Splits jobs into clean batches of 5 with proper line spacing."""
     chunks = []
     batch_size = 5
     for i in range(0, len(jobs), batch_size):
         batch = jobs[i:i + batch_size]
-        lines = [f"{title} ({i+1}-{i+len(batch)} of {len(jobs)})", ""]
+        lines = [f"*{title}* ({i+1}-{i+len(batch)} of {len(jobs)})", ""]
+        
         for job in batch:
-            lines.append(f"🔹 {job['title']}")
+            lines.append(f"🔹 *{job['title']}*")
+            
             bits = [b for b in [job.get("company"), job.get("location")] if b]
             if bits:
                 lines.append(" · ".join(bits))
+                
             lines.append(job["url"])
-            lines.append("")
+            lines.append("") # Empty line separator between listings
+            
         chunks.append("\n".join(lines).strip())
     return chunks
