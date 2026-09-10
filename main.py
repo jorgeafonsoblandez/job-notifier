@@ -5,7 +5,7 @@ for anything not seen before.
 
 Runs daily via .github/workflows/check.yml
 """
-
+import os
 import sys
 
 from config import IT_KEYWORDS, TEMP_KEYWORDS, REMOTE_HINTS, LOCATION_HINTS
