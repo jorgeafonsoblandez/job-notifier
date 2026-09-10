@@ -20,6 +20,7 @@ jobs:
           TRADEME_CONSUMER_SECRET: ${{ secrets.TRADEME_CONSUMER_SECRET }}
           TRADEME_OAUTH_TOKEN: ${{ secrets.TRADEME_OAUTH_TOKEN }}
           TRADEME_OAUTH_TOKEN_SECRET: ${{ secrets.TRADEME_OAUTH_TOKEN_SECRET }}
+          TRADEME_API_BASE: ${{ secrets.TRADEME_API_BASE }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       - name: Commit seen_jobs.json
