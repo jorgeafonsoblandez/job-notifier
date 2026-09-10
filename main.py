@@ -15,7 +15,9 @@ from notifier import send_telegram, format_message
 
 
 def job_url(listing_id: int) -> str:
-    return f"https://www.trademe.co.nz/a/jobs/listing/{listing_id}"
+    api_base = os.environ.get("TRADEME_API_BASE", "https://api.trademe.co.nz/v1")
+    web_domain = "https://www.tmsandbox.co.nz" if "tmsandbox" in api_base else "https://www.trademe.co.nz"
+    return f"{web_domain}/a/jobs/listing/{listing_id}"
 
 
 def to_job_dict(raw: dict) -> dict:
