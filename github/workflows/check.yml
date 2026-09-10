@@ -1,0 +1,28 @@
+name: Check Jobs
+on:
+  schedule:
+    - cron: '0 20 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  run-aggregator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      - run: pip install requests
+      - run: python main.py
+        env:
+          TRADEME_CONSUMER_KEY: ${{ secrets.TRADEME_CONSUMER_KEY }}
+          TRADEME_CONSUMER_SECRET: ${{ secrets.TRADEME_CONSUMER_SECRET }}
+          TRADEME_OAUTH_TOKEN: ${{ secrets.TRADEME_OAUTH_TOKEN }}
+          TRADEME_OAUTH_TOKEN_SECRET: ${{ secrets.TRADEME_OAUTH_TOKEN_SECRET }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - name: Commit seen_jobs.json
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add seen_jobs.json
+          git commit -m "Update seen jobs" || echo "No changes to commit"
+          git push
