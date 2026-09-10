@@ -17,6 +17,7 @@ TEMP_KEYWORDS = [
     "Events",
     "No experience required",
     "Trolley",
+    "Airport",
     "Entry level",
 ]
 
