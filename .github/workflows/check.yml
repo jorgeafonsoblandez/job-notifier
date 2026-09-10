@@ -4,6 +4,9 @@ on:
     - cron: '0 20 * * *'
   workflow_dispatch: # Allows manual triggering
 
+permissions:
+  contents: write
+
 jobs:
   run-aggregator:
     runs-on: ubuntu-latest
@@ -26,3 +29,4 @@ jobs:
           git add seen_jobs.json
           git commit -m "Update seen jobs" || echo "No changes to commit"
           git push
+                    
