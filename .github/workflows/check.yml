@@ -1,7 +1,14 @@
 name: Check Jobs
+
 on:
   schedule:
-    - cron: '0 * * * *'
+    # Once a day, 19:00 UTC ≈ 7am NZST / 8am NZDT — a morning check before
+    # the day's job hunting. GitHub cron runs in UTC and does NOT
+    # auto-adjust for NZ's DST, and high-frequency schedules (hourly or
+    # less) aren't reliably honored by GitHub's own scheduler — daily is
+    # both more realistic for how often new listings appear and more
+    # likely to actually fire on time.
+    - cron: '0 19 * * *'
   workflow_dispatch: # Allows manual triggering
 
 permissions:
@@ -30,4 +37,3 @@ jobs:
           git add seen_jobs.json
           git commit -m "Update seen jobs" || echo "No changes to commit"
           git push
-                    
